@@ -12,7 +12,7 @@ const validateName = (req, res, next) => {
 
 const validateEmail = async (req, res, next) => {
   const { email } = req.body;
-  
+
   const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
   if (!email) return res.status(400).json({ message: '"email" is required' });
@@ -41,8 +41,16 @@ const validatePassword = (req, res, next) => {
   next();
 };
 
+const validateUser = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await User.findOne({ where: { email } });
+  if (!user) return res.status(400).json({ message: 'Invalid fields' });
+  next();
+};
+
 module.exports = {
   validateEmail,
   validateName,
   validatePassword,
+  validateUser,
 };
