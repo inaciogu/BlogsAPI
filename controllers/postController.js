@@ -9,6 +9,7 @@ const insert = async (req, res) => {
 
 const findAll = async (req, res) => {
   const users = await post.findAll();
+  console.log(users);
   res.status(200).json(users);
 };
 
@@ -19,8 +20,17 @@ const findById = async (req, res) => {
   res.status(200).json(foundPost);
 };
 
+const update = async (req, res) => {
+  const { title, content } = req.body;
+  const { id } = req.params;
+
+  const updatePost = await post.update(title, content, id);
+  res.status(200).json(updatePost);
+};
+
 module.exports = {
   insert,
   findAll,
   findById,
+  update,
 };

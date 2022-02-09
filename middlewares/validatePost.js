@@ -35,8 +35,33 @@ const validateId = async (req, res, next) => {
   next();
 };
 
+const authUser = async (req, res, next) => {
+  const { id } = req.params;
+
+  const userId = req.user.id;
+
+  const post = await BlogPost.findByPk(id);
+
+  if (userId !== post.dataValues.userId) {
+    return res.status(401).json({ message: 'Unauthorized user' });
+  }
+  next();
+};
+
+const authCategory = async (req, res, next) => {
+  const { categoryIds } = req.body;
+
+  if (categoryIds) {
+    return res.status(400).json({ message: 'Categories cannot be edited' });
+  }
+
+  next();
+};
+
 module.exports = {
   validatePost,
   validateCategory,
   validateId,
+  authUser,
+  authCategory,
 };

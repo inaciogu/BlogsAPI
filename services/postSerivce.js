@@ -10,16 +10,24 @@ const insert = async (title, content, categoryIds, userId) => {
 const findAll = async () => {
   // Funcão inspirada no codigo do Gui Gomes e feita com ajuda dele.
   const posts = await BlogPost.findAll({ include: [
-    { model: Category, as: 'categories' }, { model: User, as: 'user' }], 
+  { model: Category, as: 'categories', through: { attributes: [] } }, { model: User, as: 'user' }], 
   attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'] });
-  console.log(posts);
   return posts;
 };
 
 const findById = async (id) => {
   const post = await BlogPost.findOne({ include: [
-  { model: Category, as: 'categories' }, { model: User, as: 'user' }], 
+  { model: Category, as: 'categories', through: { attributes: [] } }, { model: User, as: 'user' }], 
   attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
+  where: { id } });
+  return post;
+};
+
+const update = async (title, content, id) => {
+  await BlogPost.update({ title, content }, { where: { id } });
+  const post = await BlogPost.findOne({ include: [
+  { model: Category, as: 'categories', through: { attributes: [] } }], 
+  attributes: ['title', 'content', 'userId'],
   where: { id } });
   return post;
 };
@@ -28,4 +36,5 @@ module.exports = {
   insert,
   findAll,
   findById,
+  update,
 };

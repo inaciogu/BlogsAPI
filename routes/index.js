@@ -15,21 +15,39 @@ loginValidation.validateEmail,
 loginValidation.validatePassword,
 userValidation.validateUser,
 user.login);
+
 routes.post('/user', 
 userValidation.validateName, 
 userValidation.validateEmail, 
 userValidation.validatePassword, 
 user.createUser);
+
 routes.get('/user', validateJWT, user.findUsers);
+
 routes.get('/user/:id', validateJWT, userValidation.validateUserId, user.findById);
+
 routes.post('/categories', categoryValidation.validateName, validateJWT, category.insert);
+
 routes.get('/categories', validateJWT, category.findAll);
+
 routes.post('/post', 
 validateJWT, 
 postValidation.validatePost, 
 postValidation.validateCategory, 
 post.insert);
+
 routes.get('/post', validateJWT, post.findAll);
-routes.get('/post/:id', validateJWT, postValidation.validateId, post.findById);
+
+routes.get('/post/:id', 
+validateJWT, 
+postValidation.validateId, 
+post.findById);
+
+routes.put('/post/:id', 
+validateJWT, 
+postValidation.authCategory, 
+postValidation.validatePost, 
+postValidation.authUser, 
+post.update);
 
 module.exports = routes;
