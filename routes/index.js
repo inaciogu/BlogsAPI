@@ -29,5 +29,6 @@ validateJWT,
 postValidation.validatePost, 
 postValidation.validateCategory, 
 post.insert);
+routes.get('/post', validateJWT, post.findAll);
 
 module.exports = routes;
