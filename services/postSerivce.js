@@ -16,7 +16,16 @@ const findAll = async () => {
   return posts;
 };
 
+const findById = async (id) => {
+  const post = await BlogPost.findOne({ include: [
+  { model: Category, as: 'categories' }, { model: User, as: 'user' }], 
+  attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
+  where: { id } });
+  return post;
+};
+
 module.exports = {
   insert,
   findAll,
+  findById,
 };

@@ -30,5 +30,6 @@ postValidation.validatePost,
 postValidation.validateCategory, 
 post.insert);
 routes.get('/post', validateJWT, post.findAll);
+routes.get('/post/:id', validateJWT, postValidation.validateId, post.findById);
 
 module.exports = routes;
