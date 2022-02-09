@@ -21,5 +21,6 @@ user.createUser);
 routes.get('/user', validateJWT, user.findUsers);
 routes.get('/user/:id', validateJWT, userValidation.validateUserId, user.findById);
 routes.post('/categories', categoryValidation.validateName, validateJWT, category.insert);
+routes.get('/categories', validateJWT, category.findAll);
 
 module.exports = routes;

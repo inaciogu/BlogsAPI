@@ -5,6 +5,12 @@ const insert = async (name) => {
   return category;
 };
 
+const find = async () => {
+  const categories = await Category.findAll();
+  return categories;
+};
+
 module.exports = {
   insert,
+  find,
 };

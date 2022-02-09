@@ -6,6 +6,12 @@ const insert = async (req, res) => {
   res.status(201).json(create);
 };
 
+const findAll = async (req, res) => {
+  const categories = await category.find();
+  res.status(200).json(categories);
+};
+
 module.exports = {
   insert,
+  findAll,
 };
