@@ -17,5 +17,6 @@ userValidation.validateEmail,
 userValidation.validatePassword, 
 user.createUser);
 routes.get('/user', validateJWT, user.findUsers);
+routes.get('/user/:id', validateJWT, userValidation.validateUserId, user.findById);
 
 module.exports = routes;

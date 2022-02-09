@@ -17,7 +17,6 @@ module.exports = async (req, res, next) => {
     const decoded = jwt.verify(token, secret);
 
     const user = await User.findOne({ where: { email: decoded.data.email } });
-    console.log(user);
 
     if (!user) {
       return res

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const Users = require('../services/userService');
-const { User } = require('../models');
 require('dotenv').config();
 
 const secret = process.env.JWT_SECRET;
@@ -9,14 +8,13 @@ const createUser = async (req, res) => {
   try {
     const { displayName, email, password, image } = req.body;
     await Users.createUser(displayName, email, password, image);
-    const user = await User.findOne({ where: { email } });
     
     const jwtConfig = {
       expiresIn: '7d',
       algorithm: 'HS256',
     };
 
-    const token = jwt.sign({ data: user }, secret, jwtConfig);
+    const token = jwt.sign({ data: { email } }, secret, jwtConfig);
 
     res.status(201).json({ token });
   } catch (error) {
@@ -39,12 +37,19 @@ const login = async (req, res) => {
 };
 
 const findUsers = async (_req, res) => {
-  const users = await User.findAll();
+  const users = await Users.findUsers();
   res.status(200).json(users);
+};
+
+const findById = async (req, res) => {
+  const { id } = req.params;
+  const foundUser = await Users.findById(id);
+  res.status(200).json(foundUser);
 };
 
 module.exports = {
   createUser,
   login,
   findUsers,
+  findById,
 };
