@@ -7,6 +7,10 @@ const insert = async (req, res) => {
   res.status(201).json({ id: createPost.id, userId: id, title, content });
 };
 
+/* const findAll = async (req, res) => {
+
+}; */
+
 module.exports = {
   insert,
 };

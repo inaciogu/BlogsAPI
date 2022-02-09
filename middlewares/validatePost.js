@@ -13,11 +13,11 @@ const validatePost = (req, res, next) => {
 const validateCategory = async (req, res, next) => {
   const { categoryIds } = req.body;
 
-  if (!categoryIds || !categoryIds.length) {
-    return res.status(400).json({ message: '"categoryId" is required' });
+  if (!categoryIds) {
+    return res.status(400).json({ message: '"categoryIds" is required' });
   }
 
-  const categories = await Category.findAll();
+  const categories = await Category.findAll({ where: { id: categoryIds } });
 
   if (categories.length !== categoryIds.length) {
     return res.status(400).json({ message: '"categoryIds" not found' });
