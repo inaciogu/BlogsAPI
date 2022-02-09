@@ -2,6 +2,7 @@ const express = require('express');
 const user = require('../controllers/userController');
 const userValidation = require('../middlewares/validateUser');
 const loginValidation = require('../middlewares/validateLogin');
+const validateJWT = require('../auth/validateJWT');
 
 const routes = express.Router();
 
@@ -15,5 +16,6 @@ userValidation.validateName,
 userValidation.validateEmail, 
 userValidation.validatePassword, 
 user.createUser);
+routes.get('/user', validateJWT, user.findUsers);
 
 module.exports = routes;

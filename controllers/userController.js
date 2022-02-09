@@ -26,21 +26,25 @@ const createUser = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ where: { email, password } });
+  const { email } = req.body;
     
   const jwtConfig = {
     expiresIn: '7d',
     algorithm: 'HS256',
   };
 
-  const token = jwt.sign({ data: user }, secret, jwtConfig);
+  const token = jwt.sign({ data: { email } }, secret, jwtConfig);
 
   res.status(200).json({ token });
+};
+
+const findUsers = async (_req, res) => {
+  const users = await User.findAll();
+  res.status(200).json(users);
 };
 
 module.exports = {
   createUser,
   login,
+  findUsers,
 };
