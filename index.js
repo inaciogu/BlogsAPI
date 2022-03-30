@@ -8,8 +8,6 @@ app.use(bodyParser.json());
 
 app.use(routes);
 
-/* app.post('/login', user.login); */
-
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (request, response) => {
   response.send();
