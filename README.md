@@ -11,6 +11,6 @@
 
 ## Como executar o projeto localmente
 
-- Faça a instalação das dependências utilizando o comamando "npm install"
-- Rode o comando "npm run prestart"
-- Execute "npm run debug" para rodar o servidor
+- Faça a instalação das dependências utilizando o comamando "npm install".
+- Altere as informações do arquivo `.env.example` com os seus dados.
+- Rode o comando npm start para iniciar o servidor.
