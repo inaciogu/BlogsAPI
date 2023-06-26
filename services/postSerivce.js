@@ -7,7 +7,6 @@ const insert = async (title, content, categoryIds, userId) => {
 };
 
 const findAll = async () => {
-  // Funcão inspirada no codigo do Gui Gomes e feita com ajuda dele.
   const posts = await BlogPost.findAll({ include: [
   { model: Category, as: 'categories', through: { attributes: [] } }, { model: User, as: 'user' }], 
   attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'] });
