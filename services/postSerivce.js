@@ -2,7 +2,6 @@ const { Category, BlogPost, User, PostCategory } = require('../models');
 
 const insert = async (title, content, categoryIds, userId) => {
   const create = await BlogPost.create({ title, content, userId });
-  // Função abaixo foi feita com ajuda do monstro do back end Guilherme Gomes
   await PostCategory.create({ postId: create.dataValues.id, categoryId: categoryIds });
   return create;
 };
